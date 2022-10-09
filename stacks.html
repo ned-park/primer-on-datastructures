@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style/style.css">
+
+    <title>A Primer on Data Structures: Stacks</title>
+  </head>
+  <body class="dark">
+    <h1>A primer on data structures: Stacks</h1>
+    <h2></h2>
+    <p>A <dfn id="def-validator">stack</dfn> is a collection of nodes, where connections and removals 
+      happen from one end only.</p>  
+    <p>That's a little bit abstract, so usually at this point lecturers start making parallels to pancakes or piles of plates.
+      Those are fine to convey the idea of <em>last in first out</em>, but leave something to be desired when thinking about
+      what a stack can do.  So I'm going to take a less culinary focused approach and ask you to imagine a single train track 
+      with a dead end.  If you want to put things there, you can one at a time.  So the first one in is the furthest from the 
+      exit, and the last one in is the closest.  In theory, the stretch of track could go on forever, but in practice it has 
+      a finite amount of space it can store.  You could also think of it like beads threaded onto a string with a knot on one
+      end if trains aren't your thing.  
+    </p>
+    <p>It's time to introduce a pointer to out Node class, because if you haven't already guessed each of our train cars is 
+      represented by a Node.  Probably unlike real trains, these cars have a lot of hooks so can be tied to by many things 
+      (though some of those hooks are in weird places so the effects might be unintended if they're used the wrong way), but 
+      each has only a single chain that it can use to attach something else.  That chain is our pointer, and the hooks 
+      spontaneously appear when something attaches to them and go away when that chain is broken.  It's a peculiar train by 
+      modern standards, but it does the job.  The thing to remember here is that chains attaching from one train car to the next
+      on the track are usually what you want, and chains that might attach to the train cars from off to the side are likely 
+      to derail the operation.  
+    </p>
+    <p>I guess the last thing to say is that while a chain could be attached to anything, you probably only want to attach it to
+      other train cars.  Just to recap train cars are Nodes, chains are pointers.
+    </p>
+    <h2>A new and improved Node</h2>
+    <pre><code>
+class Node {
+  constructor(data=null, pointer=null) {
+    this.data = data;
+    this.pointer = pointer;
+  }
+}
+    </code></pre>
+    <p>The keen observer will notice that <code>this.pointer = pointer</code> is the only change between this
+    new kind of Node and our <a href="nodes.html">previous Node</a>.  You probably remember that little bit of 
+    strangeness when the data property contained another Node, which also contained another Node.  With this, and 
+    all of the other datastructures our data property will just hold data.  That might be an Object, and while that
+    could be a Node it almost certainly won't be.  That's because the pointer property in the Node is what will 
+    store references to other Nodes.
+    </p>
+    <p>The idea of a pointer or reference throws some people off at first.  But you've been working with them 
+      since you first began to program.  In JavaScript, we don't need to worry about the memory address directly,
+      instead we just say that <code>a = 5</code> and when we need whatever <code>a</code> contains, we just use 
+      it.  The same is true for the pointer, it's just that the thing the pointer stores is a Node (or null if 
+      there is no Node that the pointer refers to).  
+    </p>
+    <h2>So how do Nodes make a stack?</h2>
+    <p>That's a good question.  Remember back to the definition of a data structure in the introduction?  Well 
+      our Nodes are the values here, and to turn them into a Stack we need to define the operations on that data.  
+      There are a few operations that Stacks need to have.  Push, for adding a Node to the Stack.  The other is 
+      pop, for removing a node from the stack.  Peek is often included so that we can see the data in the end Node
+      of the Stack.  I'll also add a length so we know how many things are in our stack--empty is also a popular 
+      option, but since it's equivalent to <code>Stack.length === 0</code> I'll leave it for you to implement if 
+      you'd like.
+    </p>
+    <pre><code>
+class Stack {
+
+  constructor() {
+    this.end = undefined;
+    this.length = 0;
+  }
+
+  // add to Stack
+  push(value) {}
+
+  // Examine the top of the Stack
+  peek() {}
+
+  // remove from Stack
+  pop() {}
+
+}
+    </code></pre>
+    <p>Together with our Node class, these operations define a Stack.  Now it's just a matter of implementing them.
+      Fortunately that isn't too difficult.  I'll start with push, since it isn't possible to have a Stack if 
+      values can't be added to it.  There are a few considerations for push.  The length needs to be incremented to 
+      account for the new Node that's added.  What if our Stack is empty?  What if it already contains values?  
+    </p>
+    <pre><code>
+push(value) {
+  let node = new Node(value);
+  
+  // update the length
+  this.length++;
+  
+  if (!this.end) {
+    this.end = node;
+    return;
+  }
+
+  node.pointer = this.end;
+  this.end = node;
+}
+    </code></pre>
+    <p>
+      In both cases, we need a new Node with a data property of the value we're passing into push.  In 
+      both cases, we also need to increase the length by one.  If the Stack is empty, then the new Node
+      just becomes the top of our Stack.  On the other hand, if the Stack already contains Nodes, then 
+      we need to make the new Node point to the current top before we point the top to the new Node.  First,
+      the new node's pointer points to the current top, then we update the top of the Stack to point to the
+      Node we just added.  
+    </p>
+    <p>
+      Now that we can add values to the Stack, it makes sense to be able to look at the top one, so it's 
+      time to implement peak.  The only tricky part here is what to return if the Stack is empty, fortunately
+      the optional chaining operator <code>.?</code> makes that easy.  The length
+      doesn't change either.
+    </p>
+    <pre><code>
+push(value) {
+  return this.end?.data;
+}
+    </code></pre>
+    <p>Finally, we need to implement pop.  The length needs to decrease if and only if the stack is non-empty,
+      we'll remove the top Node and update the end pointer to top's next--which might be null--and return 
+      the cached value.   
+    </p>
+    <pre><code>
+pop() {
+  if (this.length === 0) {
+    return undefined;
+  }
+
+  this.length--;
+  const popped = this.end;
+  this.end = popped.pointer;
+  return popped.data;
+}      
+    </code></pre>
+    <p>That's really all there is to a stack.  It's suprising how much you can do with something so simple.  
+      From the call stack you see printed out when your code throws an error, reversing an array, making 
+      recursive calls, or the shunting yard algorithm for parsing infex expressions of binary operators all 
+      use Stacks.  Take the time to implement one if you aren't comfortable with it.  Then figure out how 
+      a Stack can be used to reverse an array or take a look at implementing the shunting yard algorithm.
+      Then it's time to take a look at <a href="comingsoon.html">Queues</a>.</p>
+  </body>
+</html>
