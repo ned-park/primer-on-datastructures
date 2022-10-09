@@ -23,3 +23,23 @@ pre code {
 a {
   text-decoration: none;
 }
+
+.dark {
+  background: #444;
+  color: #ddd;
+}
+
+.dark pre code {
+  background-color: #333;
+  border: 1px solid #aaa;
+  display: block;
+  padding: 2rem;
+}
+
+.dark a {
+  color: skyblue;
+}
+
+.dark a:visited {
+  color: #cc7ff7;
+}
