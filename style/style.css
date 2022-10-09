@@ -1,0 +1,21 @@
+body{
+  font-size: 165%;
+}
+
+body{
+  margin: 4rem auto;
+  max-width: 650px;
+  line-height: 1.6;
+  font-size: 1.2rem; 
+  color:#444;
+  padding:0 1rem;
+}
+h1,h2,h3{
+  line-height:1.2
+}
+pre code {
+  background-color: #eee;
+  border: 1px solid #aaa;
+  display: block;
+  padding: 2rem;
+}

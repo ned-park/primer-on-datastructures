@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style/style.css">
+
+    <title>A Primer on Data Structures: Nodes</title>
+  </head>
+  <body>
+    <h1>A primer on data structures: Nodes</h1>
+    <h2></h2>
+    <p>A <dfn id="def-validator">node</dfn> has two parts, a place to store data and a spot to put pointers to other nodes.</p>  
+    <p>I hear you, what the heck is a pointer and why does it point to other nodes.  For now, we'll skip adding the adding 
+      pointer and use use the data property.  How many pointers there are, and what they point to changes what kind of data 
+      structure a Node is a part of.  That data part is just like a variable, it can store anything you want that another variable
+      can store.  Just like you can put almost anything (within the physical limits) onto a cargo boat you can do the same with 
+      any piece of data in a Node.  
+    </p>
+    <h2>You brought me here for variables!?!</h2>
+    <p>I know, nothing ground breaking.  The only odd part is that you're going to be defining it in some kind of Object (usually).
+      For this primer, our data structures will always be built out of Objects.  Yeah, it's a little weird to put a variable inside 
+      an Object instead of just into a variable.  But this starts building in tiny steps, and while it might seem a little strange 
+      you should understand how to do it and that it can be done.  I'll even define a Node below, just so you can see it and get 
+      an idea of what it can do.  
+    </p>
+    <pre>
+      <code>
+class Node {
+  constructor(data=null) {
+    // defaults to null
+    this.data = data;
+  }
+}
+      </code>
+    </pre>
+    <p>Now we'll make some Nodes.  Start with things that aren't too fancy and then go
+      full node-ception.
+    </p>
+    <pre><code>
+const nothing = new Node();
+let one = new Node(1);
+let two = new Node(2);
+let three = new Node(' = 3');
+let a = new Node(`How this will ever be useful?`);
+let b = new Node(a);
+let c = new Node(`I can put a Node in a Node!`);
+const nodeception = new Node(b);
+</code></pre>
+    <p>That's enough nodes for now.  So we'll print some and see what they look like.  Those nested nodes are kind of weird.  
+      Like a computational version of matryoshka dolls that don't get any smaller as they get nested.  I can already hear you 
+      asking when will I ever use this?  In this way right here?  Probably not too often, but I can't say it won't happen, and 
+      knowing that you can do this (even if maybe you shouldn't) is part of the playing with (and maybe breaking) these data 
+      structures.  Stretch them, see what makes them stop working and how they work.  A node is a pretty simple thing.  
+    </p>
+    <pre><code>
+console.log(one)
+// hang on that isn't what I wanted
+console.log(`${one.data} + ${two.data}${three.data}`)
+
+console.log(b)
+console.log(b.data)
+console.log(b.data.data)
+console.log(nodeception.data)
+console.log(nodeception.data.data.data)    
+      </code></pre>
+      <pre><output>
+Node { data: 1, pointer: null }
+1 + 2 = 3
+Node {
+  data: Node {
+    data: "I can't see how this will ever be useful",
+    pointer: null
+  },
+  pointer: null
+}
+Node {
+  data: "I can't see how this will ever be useful",
+  pointer: null
+}
+I can't see how this will ever be useful
+Node {
+  data: Node {
+    data: "I can't see how this will ever be useful",
+    pointer: null
+  },
+  pointer: null
+}
+I can't see how this will ever be useful
+        </output></pre>
+
+    <h2>Why would I ever do this?</h2>
+    <p>Alright, I admit it, I'm a little bit uncomfortable with nodeception, that thing is strange.</p>
+    <pre><code>
+nodeception.data = nothing.data // nullify it
+console.log({nodeception})
+
+let msg = `I thought you were getting rid of that\n
+  nesting so things would get easier, not so you\n 
+  could go around adding functions in them.`;
+
+nodeception.data = () => console.log();
+nodeception.data // the uncalled function
+nodeception.data() // now I'm calling the function 
+    </code></pre>
+    <pre><output>
+{ nodeception: Node { data: null, pointer: null } }
+
+I thought you were getting rid of that
+nesting so things would get easier, not so you
+could go around putting functions in them.
+    </output></pre>
+    <p>Alright, I'll stop for now.  I just want to make sure you knew that you can put anything into them that you want to (whether it's a good idea or not).  Take 
+      some time play with these though.  Think of them as boxes, bins, bags, magical hats that have a portal to extradimensional space, or just plain Nodes.  
+      Maybe reimplement the Node class, or try adding an array as a piece of data.  Maybe make an array of Nodes inside a loop and then print the numbers afterwards.
+      Try nesting them (right now this isn't very useful, but you'll soon discover that it's like having a pointer without a place to store other data).  
+      Putting a function inside one was a little weird, I'm not sure when I'd use that, but I might think of something later on.  It is kind of cool though.  I'm
+      sure you get my point, reading this isn't the important part of learning about these things (though hopefully it helps).  Come up with your own analogies, 
+      and examples, and parallels to other things you see in the world.  
+    </p>
+    <p>That's it for Nodes right now, but soon we'll talk about <a href="comingsoon.html">stacks</a> and introduce a pointer into our Node class.</p>
+  </body>
+</html>
+

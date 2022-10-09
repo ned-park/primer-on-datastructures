@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style/style.css">
+
+    <title>A Primer on Data Structures</title>
+  </head>
+  <body>
+    <h1>A primer on data structures</h1>
+    <h2>Prequisite stuff</h2>
+    <p>I'm assuming that you know the basics of programming in JavaScript(or some other language).  I'm also assuming 
+      that you're comfortable with classes and Objects.  It would help to be a little bit curious about things.  Some 
+      of the ideas you'll find here are strange, it might be the first time you've encountered them in an abstract form.
+      Have patience with yourself, ask questions, build and play with these ideas.  I think that programming should be 
+      a little fun, and these are some of my favourite ideas to play with.  Play is the key here, not everything that 
+      comes up in the examples will be a good idea or something that should be applied everywhere, but a part of 
+      learning about datastructures is getting a sense of what not to do.  Explore these ideas and you'll find them 
+      intuitive.
+    </p>
+    <p>A little bit of functional programming wouldn't hurt.  But if you don't know it, that's okay too.  I'll begin with the 
+      simple things and build things step by step (mostly).  Some things may be a little strange, especially if you're fairly
+      new to programming.  This may not be the fastest or the most direct way to learn these ideas, but it's a step-by-step 
+      and, at least from my point of view, playful approach to the subject.
+    </p>
+    <h2>So what is a data structure anyway?</h2>
+    <p>A <dfn id="def-validator">data structure</dfn> is a collection of values and operations that can be performed on them.</p>  
+    <p>That's probably a little bit abstract, so lets break it down a bit.  Computers work with information.  Often we forget 
+      that everything, including the programs we write end up as a series of 0s and 1s in the CPU and memory.  Yet somehow the 
+      computer knows how to run those programs and handle that data.  In other words, there's a kind of organization going on
+      in the circuits that let computers interpret and run the programs we write.  That hard work is already done for us.  We 
+      just need to worry about the information we want our programs to store, access, and transform.  
+    </p>
+    <p>Anyone who has spent time programming is probably aware that there are better and worse ways to perform the same task.  
+      An infinite number of ways.  Yet the vast majority of those ways will take a very long time to finish if they ever do.  
+      Similarly, there are lots of ways to store that information, but lots of those ways leave a lot to be desired.  Data 
+      structures let us store, retrieve, and process information efficiently.  That means our programs run faster, are more 
+      responsive, take up fewer resources, and give users (and developers) a better experience.  
+    </p>
+    <h2>That sounds pretty good!  So what's the catch?</h2>
+    <p>Good question!  There's some learning involved.  It won't always be easy either, a lot of these ideas are things 
+      you've never thought about in a rigorous way before.  But many of them apply to things you do each and everyday already.
+      Other times, they're similar to things that you might have played with as a kid.  So even if the going is hard, and it 
+      sometimes will be, take the time to sit down and think about how these data structures would look if you were building
+      them as physical structures in the world.  Draw them out if you want, build models, play with them, break them!  Don't 
+      just read about them in their abstract form and think &quot;I don't understanding this, maybe these aren't for me.&quot;
+      Remember that bit about things you do (or encounter) everyday?  You probably already know a lot more about them than you
+      might think.
+    </p>
+    <h2>I'm intrigued, but not convinced.</h2>
+    <p>Alright, there are a few more caveats and things that take some getting used to.  But those all make sense too, or they
+      will once you learn to think about them a little differently than you might be right now.  Everything you'll find here 
+      has an underlying logic.  If you'll permit me, I'll even say they have a structure that makes sense once you've spent some time 
+      playing with it.  There is a little bit of math (that's the real catch you say, but I hope you'll see that you're better 
+      at math than you think when you understand why things work rather than just applying them to problems directly) involved 
+      in the analysis of these structures and their functions.  But I'll break that down and show each step along the way so 
+      you have the tools you need.  I'll also provide some physical analogies to what's going on so even if you don't want to 
+      learn the math you'll develop a little bit of intuition about what it means.  Or you can just memorize the results if you
+      want to talk about it without bothering to learn why it works and that's okay too--though do play with the structures 
+      themselves.  They start simple, so see just how far you can stretch them.  
+    </p>
+    <p>That's it for the introduction, if you follow me to the next page I'll introduce you to our first data structure--a
+      <a href="nodes.html">Node</a>.</p>
+  </body>
+</html>
