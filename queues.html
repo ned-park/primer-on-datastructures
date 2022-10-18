@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style/style.css">
+
+    <title>A Primer on Data Structures: Queues</title>
+  </head>
+  <body class="dark">
+    <h1>A primer on data structures: Queues</h1>
+    <h2></h2>
+    <p>A <dfn id="def-queue">queue</dfn> is a linear data structure where the first val inserted is also the first removed.</p>  
+    <p>Queues are often called a first in first out data structure.  Usually the example of a queue is a line of well-behaved 
+      people waiting for a cashier.  I often think of them as conveyor belts delivering things from one end to the other.  Like 
+      most data structures (okay all the data structures), a queue can be built from Nodes.  
+    </p>
+    <p>In fact, we can use the same Node we used in the Stack.  We just need a pointer going in one direction.  The difference
+      is going to be in the implementation of our Queue class.  
+    </p>
+<pre><code>
+class Node {
+  constructor(data=null, pointer=null) {
+    this.data = data;
+    this.pointer = pointer;
+  }
+}
+    </code></pre>
+
+    <p>Instead of relying on just an end field, we're going to need pointers to the first and last Nodes in the Queue.  Out of convention,
+      we'll call the first pointer head, and the second one tail.  So our values will always enter at the tail, and leave at the head of the 
+      Queue.  
+    </p>
+<pre><code>
+  class Queue {
+    constructor() {
+      this.head = undefined;
+      this.tail = undefined;
+      this.length = 0;
+    }
+  
+    // add to Queue
+    enqueue(value) {}
+  
+    // Examine the first item in the Queue
+    peek() {}
+  
+    // remove from Queue
+    dequeue() {}
+  
+  }
+</code></pre>    
+    <p>Rather than push and pop, we have enqueue and dequeue.  Enqueue adds a new value in a Node at the end of the Queue, while
+      dequeue removes the first Node from the Queue and returns it's value.  Our peek method returns the value found at the front
+      of the queue without removing that Node.  Think of it like beads on a string, or parcels on a conveyor belt, or even cars driving
+      single file on a narrow road.  Once something gets added it's stuck until all of the other things in front of it are removed.
+    </p>
+<code><pre>
+  enqueue(value) {
+    let node = new Node(value);
+
+    // update the length
+    this.length++;
+
+    // check if list is empty
+    if (!this.head && !this.tail) {
+      this.head = node;
+      this.tail = node;
+      return;
+    }
+  
+    // else add the node to the end
+    this.tail.pointer = node;
+    }
+  }
+</pre></code>
+    <p>Enqueue is a fairly simple operation.  First we create the new Node to store the value in.  Then we update the length, 
+      if the queue is empty, this.head and this.tail won't be defined.  Alternately, we could check if the length we just 
+      incremented equals 1.  If the head and tail don't exist, we'll make them both point to the new Node and return from our
+      function.  If the queue isn't empty, we want to update the last Node's pointer so it references Node.  
+    </p>
+    
+
+    <p>
+       Curious what happens if we combine a stack and queue?, that's called a <a href="comingsoon.html">deque</a>.
+    </p>
+  </body>
+</html>
